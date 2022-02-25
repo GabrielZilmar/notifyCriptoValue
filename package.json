@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.26.0",
     "dotenv": "^16.0.0",
     "twilio": "^3.74.0"
   },

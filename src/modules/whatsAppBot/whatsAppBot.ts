@@ -15,10 +15,6 @@ class WhatsAppBot {
     this.client = twilio(this.accountSid, this.authToken);
   }
 
-  start() {
-    this.sendMessage("Hello World", "+553899731516");
-  }
-
   async sendMessage(message: string, to: string) {
     try {
       this.client.messages
@@ -27,10 +23,12 @@ class WhatsAppBot {
           from: `whatsapp:${this.phoneNumber}`,
           to: `whatsapp:${to}`
         })
-        .then((message) => console.log(message.sid))
+        .then((message) =>
+          console.info(`Message sent to ${to}. Confirmation: ${message.sid}`)
+        )
         .finally();
-    } catch (e) {
-      console.log(e);
+    } catch (err: any) {
+      throw new Error(err);
     }
   }
 }

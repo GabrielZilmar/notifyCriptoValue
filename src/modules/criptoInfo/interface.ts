@@ -45,3 +45,5 @@ export interface ICryptoInfo {
   "1d": I1d;
   "30d": I30d;
 }
+
+export type ICurrenciesAvailable = "BRL" | "EUR";

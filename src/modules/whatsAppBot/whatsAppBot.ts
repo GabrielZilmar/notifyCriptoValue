@@ -1,4 +1,4 @@
-import twilio, { Twilio } from "twilio";
+import { Twilio } from "twilio";
 import config from "../../config";
 
 class WhatsAppBot {
@@ -12,11 +12,7 @@ class WhatsAppBot {
     this.accountSid = config.accountSid;
     this.phoneNumber = config.phoneNumber;
 
-    this.client = twilio(this.accountSid, this.authToken);
-  }
-
-  start() {
-    this.sendMessage("Hello World", "+553899731516");
+    this.client = new Twilio(this.accountSid, this.authToken);
   }
 
   async sendMessage(message: string, to: string) {
@@ -27,10 +23,12 @@ class WhatsAppBot {
           from: `whatsapp:${this.phoneNumber}`,
           to: `whatsapp:${to}`
         })
-        .then((message) => console.log(message.sid))
+        .then((message) =>
+          console.info(`Message sent to ${to}. Confirmation: ${message.sid}`)
+        )
         .finally();
-    } catch (e) {
-      console.log(e);
+    } catch (err: any) {
+      throw new Error(err);
     }
   }
 }

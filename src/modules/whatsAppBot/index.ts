@@ -1,3 +1,3 @@
-import WhatsAppBot from "./whatsAppBot";
+import WhatsAppBot from "./WhatsAppBot";
 
 export const whatsAppBot = new WhatsAppBot();

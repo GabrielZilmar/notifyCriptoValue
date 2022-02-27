@@ -1,4 +1,4 @@
-import { cryptoInfo } from "./modules/criptoInfo";
+import { cryptoInfo } from "./modules/cryptoInfo";
 import { whatsAppBot } from "./modules/whatsAppBot";
 
 const GET_REQUESTS_PER_SECOND = 10;

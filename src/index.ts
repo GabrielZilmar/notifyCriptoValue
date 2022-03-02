@@ -1,16 +1,7 @@
-import { cryptoInfo } from "./modules/cryptoInfo";
-import { whatsAppBot } from "./modules/whatsAppBot";
+import { httpServer } from "./modules/httpServer";
 
-const GET_REQUESTS_PER_SECOND = 10;
+const main = async () => {
+  await httpServer.start();
+};
 
-setInterval(async () => {
-  const coinInfos = await cryptoInfo.checkPrice();
-
-  for await (let info of coinInfos) {
-    const message = `The current price of ${info.name} is: R$${parseFloat(
-      info.price
-    ).toFixed(2)}`;
-
-    whatsAppBot.sendMessage(message, "+553899731516");
-  }
-}, GET_REQUESTS_PER_SECOND * 1000);
+main();

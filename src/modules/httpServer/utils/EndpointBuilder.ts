@@ -1,13 +1,19 @@
-import { IRouter } from "express";
 import { HttpMethod } from "../../../types/HttpMethod";
+import { Router, Request, Response, NextFunction } from "express";
 
-type IHandler = (req: any, res: any) => Promise<void> | void;
+type IHandler = (req: Request, res: Response) => Promise<void> | void;
+
+type IPipe = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => Promise<void> | void;
 
 class EndpointBuilder {
   private httpMethod: HttpMethod;
   private path: string;
   private handler: IHandler;
-  private pipes: any[];
+  private pipes: IPipe[];
 
   static new(path: string): EndpointBuilder {
     const instance = new EndpointBuilder();
@@ -25,8 +31,12 @@ class EndpointBuilder {
     return this;
   }
 
-  public addPipe(pipe: any): EndpointBuilder {
-    this.pipes.push(pipe);
+  public addPipe(pipe: IPipe | IPipe[]): EndpointBuilder {
+    if (Array.isArray(pipe)) {
+      this.pipes = pipe;
+    } else {
+      this.pipes.push(pipe);
+    }
     return this;
   }
 
@@ -48,19 +58,19 @@ class EndpointBuilder {
     return this.httpMethod;
   }
 
-  public register(route: IRouter): void {
+  public register(route: Router): void {
     switch (this.httpMethod) {
       case HttpMethod.DELETE:
-        route.delete(this.path, this.handler, this.pipes);
+        route.delete(this.path, ...[...this.pipes, this.handler]);
         break;
       case HttpMethod.POST:
-        route.post(this.path, this.handler, this.pipes);
+        route.post(this.path, ...[...this.pipes, this.handler]);
         break;
       case HttpMethod.PUT:
-        route.put(this.path, this.handler, this.pipes);
+        route.put(this.path, ...[...this.pipes, this.handler]);
         break;
       default:
-        route.get(this.path, this.handler, this.pipes);
+        route.get(this.path, ...[...this.pipes, this.handler]);
         break;
     }
   }

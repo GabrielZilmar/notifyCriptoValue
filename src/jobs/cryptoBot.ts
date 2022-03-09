@@ -11,6 +11,6 @@ setInterval(async () => {
       info.price
     ).toFixed(2)}`;
 
-    whatsAppBot.sendMessage(message, "+553899731516");
+    whatsAppBot.sendFreeMessage(message, "+553899731516");
   }
 }, GET_REQUESTS_PER_SECOND * 1000);

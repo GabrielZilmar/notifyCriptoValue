@@ -10,6 +10,8 @@ export class HttpServer {
     const app = express();
 
     app.use(cors({ origin: true }));
+
+    app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
 
     const endpointFiles = "../**/routes/*.ts";

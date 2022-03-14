@@ -1,7 +1,7 @@
-import * as express from "express";
-import * as cors from "cors";
-import * as http from "http";
-import * as glob from "glob";
+import express from "express";
+import cors from "cors";
+import http from "http";
+import glob from "glob";
 import EndpointBuilder from "./utils/EndpointBuilder";
 import config from "../../config";
 

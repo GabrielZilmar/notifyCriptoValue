@@ -1,5 +1,7 @@
-import { Twilio } from "twilio";
+import { Twilio, twiml } from "twilio";
+import { whatsAppBotController } from ".";
 import config from "../../config";
+import { IMessageInfo } from "./interface";
 
 class WhatsAppBot {
   private authToken: string;
@@ -15,7 +17,7 @@ class WhatsAppBot {
     this.client = new Twilio(this.accountSid, this.authToken);
   }
 
-  async sendMessage(message: string, to: string) {
+  async sendFreeMessage(message: string, to: string) {
     try {
       this.client.messages
         .create({
@@ -30,6 +32,15 @@ class WhatsAppBot {
     } catch (err: any) {
       throw new Error(err);
     }
+  }
+
+  async replyMessage(messageInfo: IMessageInfo): Promise<string> {
+    const messageResponse = new twiml.MessagingResponse();
+    const message = await whatsAppBotController.processMessage(messageInfo);
+
+    messageResponse.message(message);
+
+    return messageResponse.toString();
   }
 }
 

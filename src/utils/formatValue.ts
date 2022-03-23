@@ -1,5 +1,5 @@
-import { ICryptoInfo } from "../cryptoInfo/interface";
-import { IMessageInfo } from "./interface";
+import { ICryptoInfo } from "../modules/cryptoInfo/interface";
+import { IMessageInfo } from "../modules/whatsAppBot/interface";
 
 export const formatDefaultMessage = (
   message: string,

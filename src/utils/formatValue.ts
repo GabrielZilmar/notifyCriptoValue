@@ -11,5 +11,5 @@ export const formatCryptoInfoMessage = (
   body: ICryptoInfo
 ): string =>
   message
-    .replace("{{coinName}}", body.name)
-    .replace("{{coinPrice}}", parseFloat(body.price).toFixed(2));
+    .replace("{{coinName}}", body?.name)
+    .replace("{{coinPrice}}", parseFloat(body?.price).toFixed(2));

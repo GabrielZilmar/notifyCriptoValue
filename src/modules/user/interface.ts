@@ -6,4 +6,5 @@ export interface IUser extends Document {
   phone: string;
   timeToUpdate: number;
   coins: String[];
+  __v: number;
 }

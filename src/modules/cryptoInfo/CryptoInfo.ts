@@ -1,18 +1,22 @@
 import config from "../../config";
 import { ICryptoInfo } from "./interface";
-import { getCryptoInfo } from "./controller";
+import { cryptoInfoController } from ".";
 
 class CryptoInfo {
   private privateKey: string;
-  private coins: string[];
 
-  constructor(coins?: string[]) {
+  constructor() {
     this.privateKey = config.nomicsApiKey;
-    this.coins = coins || ["ETH"];
   }
 
-  checkPrice = async (): Promise<ICryptoInfo[]> =>
-    getCryptoInfo(this.privateKey, this.coins);
+  checkPrice = async (coins: string[] = ["ETH"]): Promise<ICryptoInfo[]> =>
+    cryptoInfoController.getCryptoInfo(this.privateKey, coins);
+
+  validateCoins = async (coins: string[]): Promise<boolean> => {
+    const coinsValues = await this.checkPrice(coins);
+
+    return coinsValues.length === coins.length;
+  };
 }
 
 export default CryptoInfo;

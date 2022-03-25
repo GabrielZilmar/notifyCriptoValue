@@ -20,7 +20,7 @@ class UserController {
       user.name = name;
     }
 
-    user.save();
+    await user.save();
 
     return user;
   }
@@ -40,20 +40,22 @@ class UserController {
 
     user.coins = coins;
 
-    user.save();
+    await user.save();
   }
 
-  async saveTimeToUpdate(phone: string, timeToUpdate: number): Promise<void> {
+  async saveTargetValue(phone: string, targetValue: number): Promise<void> {
     const user = await this.getByPhone(phone);
 
     if (!user) {
       throw new Error("User not found.");
     }
 
-    user.timeToUpdate = timeToUpdate;
+    user.targetValue = targetValue;
 
-    user.save();
+    await user.save();
   }
+
+  // Todo: Delete user
 }
 
 export default UserController;

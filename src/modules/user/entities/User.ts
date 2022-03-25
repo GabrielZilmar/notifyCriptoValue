@@ -4,7 +4,7 @@ import { IUser } from "../interface";
 const userSchema = new mongoose.Schema<IUser>({
   name: String,
   phone: { type: String, unique: true },
-  timeToUpdate: { type: Number, default: 12 * 60 * 60 }, // In seconds
+  targetValue: Number,
   coins: { type: [String], default: ["ETH"] }
 });
 

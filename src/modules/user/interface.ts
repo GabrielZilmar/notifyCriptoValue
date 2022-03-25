@@ -4,7 +4,7 @@ export interface IUser extends Document {
   _id: string;
   name: string;
   phone: string;
-  timeToUpdate: number;
+  targetValue: number;
   coins: String[];
   __v: number;
 }

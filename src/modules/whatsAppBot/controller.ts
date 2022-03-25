@@ -2,20 +2,51 @@ import {
   catchError,
   cryptoInfoMessage,
   defaultMessage
-} from "../../static/messages";
+} from "../../constants/messages";
 import { cryptoInfo } from "../cryptoInfo";
 import { IMessageInfo } from "./interface";
-import {
-  formatDefaultMessage,
-  formatCryptoInfoMessage
-} from "../../utils/formatValue";
+import Formatter from "../../utils/Formatter";
 import { userController } from "../user";
 
 class WhatsAppBotController {
+  private async processGetCoinValueAction(message: string): Promise<string> {
+    const coins = message.replace("COIN ", "").split(",");
+    const coinInfos = (await cryptoInfo.checkPrice(coins))[0];
+
+    if (coinInfos) {
+      return Formatter.formatCryptoInfoMessage(cryptoInfoMessage, coinInfos);
+    }
+
+    return catchError("currency");
+  }
+
+  private async processSaveCoinAction(
+    message: string,
+    phone: string
+  ): Promise<string> {
+    const coins = message.replace("SAVE COINS ", "").split(",");
+    // TODO: Verify coins. If wrong return error message
+    await userController.saveCoins(phone, coins);
+
+    return "Coins saved successfully";
+  }
+
+  private async processSaveTargetValueAction(message, phone): Promise<string> {
+    const targetValue = parseFloat(message.replace(" SECONDS", ""));
+
+    if (isNaN(targetValue)) {
+      return catchError("saveTargetValue");
+    }
+
+    await userController.saveTargetValue(phone, targetValue);
+
+    return "Coins saved successfully";
+  }
+
   async processMessage(messageInfo: IMessageInfo): Promise<string> {
     const body = messageInfo.Body.toUpperCase();
 
-    let message = formatDefaultMessage(defaultMessage, messageInfo);
+    let message = Formatter.formatDefaultMessage(defaultMessage, messageInfo);
 
     const userData = {
       name: messageInfo.ProfileName,
@@ -25,22 +56,11 @@ class WhatsAppBotController {
     await userController.upsert(userData);
 
     if (body.startsWith("COIN ")) {
-      const coins = body.replace("COIN ", "").split(",");
-      const coinInfos = (await cryptoInfo.checkPrice(coins))[0];
-      console.log(coinInfos);
-      if (coinInfos) {
-        message = formatCryptoInfoMessage(cryptoInfoMessage, coinInfos);
-      } else {
-        message = catchError("currency");
-      }
+      message = await this.processGetCoinValueAction(body);
     } else if (body.startsWith("SAVE COINS ")) {
-      const coins = body.replace("SAVE COINS ", "").split(",");
-      // TODO: Verify coins
-      await userController.saveCoins(userData.phone, coins);
-      message = "Coins saved successfully";
-    } else if (body.endsWith(" SECONDS")) {
-      const timeToUpdate = parseInt(body.replace(" SECONDS", ""), 10);
-      await userController.saveTimeToUpdate(userData.phone, timeToUpdate);
+      message = await this.processSaveCoinAction(body, userData.phone);
+    } else if (body.endsWith(" VALUE")) {
+      message = await this.processSaveTargetValueAction(body, userData.phone);
     }
 
     return message;

@@ -25,7 +25,12 @@ class WhatsAppBotController {
     phone: string
   ): Promise<string> {
     const coins = message.replace("SAVE COINS ", "").split(",");
-    // TODO: Verify coins. If wrong return error message
+
+    const allCoinsValid = await cryptoInfo.validateCoins(coins);
+    if (!allCoinsValid) {
+      return catchError("saveCoinsSymbol");
+    }
+
     await userController.saveCoins(phone, coins);
 
     return "Coins saved successfully";

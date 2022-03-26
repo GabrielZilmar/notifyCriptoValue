@@ -5,7 +5,7 @@ import glob from "glob";
 import EndpointBuilder from "./utils/EndpointBuilder";
 import config from "../../config";
 
-export class HttpServer {
+class HttpServer {
   private async setup(): Promise<http.Server> {
     const app = express();
 

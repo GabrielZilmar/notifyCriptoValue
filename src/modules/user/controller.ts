@@ -25,6 +25,12 @@ class UserController {
     return user;
   }
 
+  async getAllUsers(): Promise<IUser[]> {
+    const users = await User.find<IUser>().exec();
+
+    return users;
+  }
+
   async getByPhone(phone: string): Promise<IUser | null> {
     const user = await User.findOne<IUser>({ phone }).exec();
 

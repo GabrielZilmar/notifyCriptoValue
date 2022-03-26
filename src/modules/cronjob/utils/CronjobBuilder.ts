@@ -1,8 +1,8 @@
 import scheduler, { JobCallback } from "node-schedule";
 
-export class CronjobBuilder {
+class CronjobBuilder {
   private name: string;
-  private scheduleTime: string = "* 2 * * *  *";
+  private scheduleTime: string = "* * * * *  *";
 
   static new(name: string): CronjobBuilder {
     const instance = new CronjobBuilder();
@@ -31,3 +31,5 @@ export class CronjobBuilder {
     scheduler.scheduleJob(this.name, this.scheduleTime, handler);
   }
 }
+
+export default CronjobBuilder;

@@ -1,4 +1,4 @@
-import WhatsAppBot from "./WhatsAppBot";
+import WhatsAppBot from "./whatsAppBot";
 import WhatsAppBotController from "./controller";
 
 export const whatsAppBot = new WhatsAppBot();

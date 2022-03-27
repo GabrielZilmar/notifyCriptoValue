@@ -1,4 +1,3 @@
-// TODO: Job to run each 10 minutes to set user notifiable again
 import { userController } from "../../modules/user";
 import CronjobBuilder from "../../modules/cronjob/utils/CronjobBuilder";
 

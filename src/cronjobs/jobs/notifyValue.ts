@@ -10,10 +10,10 @@ export default CronjobBuilder.new("notifyValueJob").register(async () => {
     const { coins, phone, targetValue, needNotify } = user;
     const currentValue = await cryptoInfo.checkPrice(coins);
 
-    const value = Number(currentValue[0].price);
-    if (value >= targetValue && needNotify) {
+    const value = currentValue[0].price;
+    if (Number(value) >= targetValue && needNotify) {
       whatsAppBot.sendFreeMessage(
-        `The price of ${coins[0]} is R\$${parseFloat(coins[0]).toFixed(2)}`,
+        `The price of ${coins[0]} is R\$${parseFloat(value).toFixed(2)}`,
         phone
       );
       userController.toggleNeedNotify(phone);

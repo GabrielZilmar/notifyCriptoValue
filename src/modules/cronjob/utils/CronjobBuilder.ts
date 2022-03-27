@@ -2,7 +2,7 @@ import scheduler, { JobCallback } from "node-schedule";
 
 class CronjobBuilder {
   private name: string;
-  private scheduleTime: string = "* * * * *  *";
+  private scheduleTime: string = "30 * * * *  *";
 
   static new(name: string): CronjobBuilder {
     const instance = new CronjobBuilder();
@@ -11,16 +11,20 @@ class CronjobBuilder {
     return instance;
   }
 
-  public setName(name: string): void {
+  public setName(name: string): CronjobBuilder {
     this.name = name;
+
+    return this;
   }
 
   public getName(): string {
     return this.name;
   }
 
-  public setScheduleTime(scheduleTime: string): void {
+  public setScheduleTime(scheduleTime: string): CronjobBuilder {
     this.scheduleTime = scheduleTime;
+
+    return this;
   }
 
   public getScheduleTime(): string {

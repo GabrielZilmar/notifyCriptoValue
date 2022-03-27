@@ -61,6 +61,18 @@ class UserController {
     await user.save();
   }
 
+  async toggleNeedNotify(phone: string): Promise<void> {
+    const user = await this.getByPhone(phone);
+
+    if (!user) {
+      throw new Error("User not found.");
+    }
+
+    user.needNotify = !user.needNotify;
+
+    await user.save();
+  }
+
   // Todo: Delete user
 }
 

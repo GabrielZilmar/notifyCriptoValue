@@ -14,7 +14,9 @@ class HttpServer {
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
 
-    const endpointFiles = "../**/routes/*.ts";
+    const endpointFiles = `../**/routes/*.${
+      config.env === "prod" ? "js" : "ts"
+    }`;
 
     await Promise.all(
       glob

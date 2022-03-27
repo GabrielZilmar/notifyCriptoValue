@@ -29,7 +29,7 @@
     "typescript": "4.5.2"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "NODE_ENV=prod node build/index.js",
     "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
     "build": "npm install && npx tsc"
   },

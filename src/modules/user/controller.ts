@@ -25,6 +25,12 @@ class UserController {
     return user;
   }
 
+  async getAllUsers(): Promise<IUser[]> {
+    const users = await User.find<IUser>().exec();
+
+    return users;
+  }
+
   async getByPhone(phone: string): Promise<IUser | null> {
     const user = await User.findOne<IUser>({ phone }).exec();
 
@@ -51,6 +57,18 @@ class UserController {
     }
 
     user.targetValue = targetValue;
+
+    await user.save();
+  }
+
+  async toggleNeedNotify(phone: string): Promise<void> {
+    const user = await this.getByPhone(phone);
+
+    if (!user) {
+      throw new Error("User not found.");
+    }
+
+    user.needNotify = !user.needNotify;
 
     await user.save();
   }

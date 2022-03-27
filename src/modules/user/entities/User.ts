@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema<IUser>({
   name: String,
   phone: { type: String, unique: true },
   targetValue: Number,
-  coins: { type: [String], default: ["ETH"] }
+  coins: { type: [String], default: ["ETH"] },
+  needNotify: { type: Boolean, default: true }
 });
 
 const User = mongoose.model<IUser>("User", userSchema);

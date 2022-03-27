@@ -45,7 +45,7 @@ class WhatsAppBotController {
 
     await userController.saveTargetValue(phone, targetValue);
 
-    return "Coins saved successfully";
+    return "Target value saved successfully";
   }
 
   async processMessage(messageInfo: IMessageInfo): Promise<string> {

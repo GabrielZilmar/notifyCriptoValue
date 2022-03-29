@@ -11,5 +11,7 @@ export default {
   phoneNumber: process.env.PHONE_NUMBER as string,
   nomicsApiKey: process.env.NOMICS_API_KEY as string,
   databaseUrl: process.env.DATABASE_URL as string,
+  rc2SecretKey: process.env.RC2_SECRET_KEY as string,
+  rc2IV: process.env.RC2_IV as string,
   env: process.env.NODE_ENV as Environment
 };

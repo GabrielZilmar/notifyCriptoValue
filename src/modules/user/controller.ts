@@ -1,5 +1,6 @@
 import User from "./entities/User";
 import { IUser } from "./interface";
+import Cryptography from "../../utils/Cryptography";
 
 class UserController {
   async upsert({
@@ -14,7 +15,7 @@ class UserController {
     if (!user) {
       user = new User({
         name,
-        phone
+        phone: Cryptography.encrypt(phone)
       });
     } else if (user.name !== name) {
       user.name = name;
@@ -32,7 +33,9 @@ class UserController {
   }
 
   async getByPhone(phone: string): Promise<IUser | null> {
-    const user = await User.findOne<IUser>({ phone }).exec();
+    const user = await User.findOne<IUser>({
+      phone: Cryptography.encrypt(phone)
+    }).exec();
 
     return user;
   }

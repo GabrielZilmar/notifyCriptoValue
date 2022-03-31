@@ -9,7 +9,14 @@
   "scripts": {
     "start": "NODE_ENV=prod node ./build/index.js",
     "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
-    "build": "npm install && npx tsc"
+    "build": "npm install && npx tsc",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "{*.js,*.jsx,*.ts,*.tsx}": [
+      "eslint"
+    ]
   },
   "dependencies": {
     "axios": "^0.26.0",
@@ -34,6 +41,8 @@
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "eslint": "^8.9.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
     "ts-node": "10.4.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "4.5.2"

@@ -2,6 +2,8 @@ import User from "./entities/User";
 import { IUser } from "./interface";
 import Cryptography from "../../utils/Cryptography";
 
+const USER_NOT_FOUND_ERROR = "User not found.";
+
 class UserController {
   async upsert({
     name,
@@ -44,7 +46,7 @@ class UserController {
     const user = await this.getByPhone(phone);
 
     if (!user) {
-      throw new Error("User not found.");
+      throw new Error(USER_NOT_FOUND_ERROR);
     }
 
     user.coins = coins;
@@ -56,7 +58,7 @@ class UserController {
     const user = await this.getByPhone(phone);
 
     if (!user) {
-      throw new Error("User not found.");
+      throw new Error(USER_NOT_FOUND_ERROR);
     }
 
     user.targetValue = targetValue;
@@ -68,7 +70,7 @@ class UserController {
     const user = await this.getByPhone(phone);
 
     if (!user) {
-      throw new Error("User not found.");
+      throw new Error(USER_NOT_FOUND_ERROR);
     }
 
     user.needNotify = !user.needNotify;

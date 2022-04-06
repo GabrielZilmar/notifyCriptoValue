@@ -1,6 +1,6 @@
-import { userController } from "../../modules/user";
-import CronjobBuilder from "../../modules/cronjob/utils/CronjobBuilder";
-import Cryptography from "../../utils/Cryptography";
+import { userController } from "@modules/user";
+import CronjobBuilder from "@modules/cronjob/utils/CronjobBuilder";
+import Cryptography from "@utils/Cryptography";
 
 const SCHEDULE_TIME = "* 15 * * *  *";
 

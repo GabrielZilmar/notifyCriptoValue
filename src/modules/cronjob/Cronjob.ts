@@ -1,5 +1,5 @@
 import glob from "glob";
-import config from "../../config";
+import config from "@/config";
 
 class Cronjob {
   private async setup(): Promise<void> {

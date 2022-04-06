@@ -1,6 +1,6 @@
 import User from "./entities/User";
 import { IUser } from "./interface";
-import Cryptography from "../../utils/Cryptography";
+import Cryptography from "@/utils/Cryptography";
 
 const USER_NOT_FOUND_ERROR = "User not found.";
 

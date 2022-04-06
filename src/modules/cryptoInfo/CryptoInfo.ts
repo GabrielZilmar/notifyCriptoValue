@@ -1,4 +1,4 @@
-import config from "../../config";
+import config from "@/config";
 import { ICryptoInfo } from "./interface";
 import { cryptoInfoController } from ".";
 

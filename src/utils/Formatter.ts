@@ -1,5 +1,5 @@
-import { ICryptoInfo } from "../modules/cryptoInfo/interface";
-import { IMessageInfo } from "../modules/whatsAppBot/interface";
+import { ICryptoInfo } from "@/modules/cryptoInfo/interface";
+import { IMessageInfo } from "@/modules/whatsAppBot/interface";
 
 class Formatter {
   static formatDefaultMessage = (message: string, body: IMessageInfo): string =>

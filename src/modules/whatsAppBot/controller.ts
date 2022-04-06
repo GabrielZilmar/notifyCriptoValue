@@ -2,10 +2,10 @@ import {
   catchError,
   cryptoInfoMessage,
   defaultMessage
-} from "../../constants/messages";
+} from "@/constants/messages";
 import { cryptoInfo } from "../cryptoInfo";
 import { IMessageInfo } from "./interface";
-import Formatter from "../../utils/Formatter";
+import Formatter from "@/utils/Formatter";
 import { userController } from "../user";
 
 class WhatsAppBotController {

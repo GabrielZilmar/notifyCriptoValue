@@ -1,5 +1,5 @@
 import forge from "node-forge";
-import config from "../config";
+import config from "@/config";
 
 class Cryptography {
   static encrypt = (value: string): string => {

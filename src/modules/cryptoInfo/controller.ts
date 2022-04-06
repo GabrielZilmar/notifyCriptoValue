@@ -1,4 +1,4 @@
-import request from "../../services/request";
+import request from "@services/request";
 import { ICryptoInfo, ICurrenciesAvailable } from "./interface";
 
 class CryptoInfoController {

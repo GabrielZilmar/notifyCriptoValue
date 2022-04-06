@@ -1,6 +1,6 @@
-import { httpServer } from "./modules/httpServer";
-import { cronjob } from "./modules/cronjob";
-import Mongo from "./database/mongo/setup";
+import { httpServer } from "@/modules/httpServer";
+import { cronjob } from "@/modules/cronjob";
+import Mongo from "@/database/mongo/setup";
 
 const main = async () => {
   await httpServer.start();

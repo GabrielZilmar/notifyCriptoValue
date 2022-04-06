@@ -1,6 +1,6 @@
 import { Twilio, twiml } from "twilio";
 import { whatsAppBotController } from ".";
-import config from "../../config";
+import config from "@/config";
 import { IMessageInfo } from "./interface";
 
 class WhatsAppBot {

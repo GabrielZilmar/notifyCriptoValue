@@ -1,4 +1,4 @@
-import { HttpMethod } from "../../../types/HttpMethod";
+import { HttpMethod } from "@/types/HttpMethod";
 import { Router, Request, Response, NextFunction } from "express";
 
 type IHandler = (req: Request, res: Response) => Promise<void> | void;

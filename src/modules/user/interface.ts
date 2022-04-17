@@ -7,5 +7,6 @@ export interface IUser extends Document {
   targetValue: number;
   coins: string[];
   needNotify: boolean;
+  targetValueOption: "LE" | "GE"; // LE = less than or equal to . GE = greater than or equal to
   __v: number;
 }

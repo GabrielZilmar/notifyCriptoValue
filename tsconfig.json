@@ -9,6 +9,15 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["./*"],
+      "@modules/*": ["./modules/*"],
+      "@pipes/*": ["./pipes/*"],
+      "@services/*": ["./services/*"],
+      "@types/*": ["./types/*"],
+      "@utils/*": ["./utils/*"]
+    }
   }
 }

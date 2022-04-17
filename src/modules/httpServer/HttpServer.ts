@@ -3,7 +3,7 @@ import cors from "cors";
 import http from "http";
 import glob from "glob";
 import EndpointBuilder from "./utils/EndpointBuilder";
-import config from "../../config";
+import config from "@/config";
 
 class HttpServer {
   private async setup(): Promise<http.Server> {

@@ -2,10 +2,10 @@ import {
   catchError,
   cryptoInfoMessage,
   defaultMessage
-} from "../../constants/messages";
+} from "@/constants/messages";
 import { cryptoInfo } from "../cryptoInfo";
 import { IMessageInfo } from "./interface";
-import Formatter from "../../utils/Formatter";
+import Formatter from "@/utils/Formatter";
 import { userController } from "../user";
 
 class WhatsAppBotController {
@@ -36,14 +36,32 @@ class WhatsAppBotController {
     return "Coins saved successfully";
   }
 
-  private async processSaveTargetValueAction(message, phone): Promise<string> {
-    const targetValue = parseFloat(message.replace(" SECONDS", ""));
+  private async processSaveTargetValueAction(
+    message: string,
+    phone: string
+  ): Promise<string> {
+    const targetValue = parseFloat(message.replace(" VALUE", ""));
 
     if (isNaN(targetValue)) {
       return catchError("saveTargetValue");
     }
 
     await userController.saveTargetValue(phone, targetValue);
+
+    return "Target value saved successfully";
+  }
+
+  private async processSaveTargetValueOptionAction(
+    message: string,
+    phone: string
+  ): Promise<string> {
+    const option = message.replace(" TARGET VALUE OPTION", "");
+
+    if (option !== "GE" && option !== "LE") {
+      return catchError("saveTargetValueOption");
+    }
+
+    await userController.saveTargetValueOption(phone, option);
 
     return "Target value saved successfully";
   }
@@ -66,8 +84,12 @@ class WhatsAppBotController {
       message = await this.processSaveCoinAction(body, userData.phone);
     } else if (body.endsWith(" VALUE")) {
       message = await this.processSaveTargetValueAction(body, userData.phone);
+    } else if (body.endsWith(" VALUE OPTION")) {
+      message = await this.processSaveTargetValueOptionAction(
+        body,
+        userData.phone
+      );
     }
-
     return message;
   }
 }

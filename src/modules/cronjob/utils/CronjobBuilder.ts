@@ -1,8 +1,9 @@
 import scheduler, { JobCallback } from "node-schedule";
+import { Timers } from "@/constants/timers";
 
 class CronjobBuilder {
   private name: string;
-  private scheduleTime: string = "30 * * * *  *";
+  private scheduleTime: string = Timers.EVERY_30_SECONDS;
 
   static new(name: string): CronjobBuilder {
     const instance = new CronjobBuilder();

@@ -1,6 +1,9 @@
 import User from "./entities/User";
 import { IUser } from "./interface";
-import Cryptography from "../../utils/Cryptography";
+import Cryptography from "@/utils/Cryptography";
+
+const USER_NOT_FOUND_ERROR = "User not found.";
+const INVALID_TARGET_VALUE_OPTION = "Invalid target value option";
 
 class UserController {
   async upsert({
@@ -44,7 +47,7 @@ class UserController {
     const user = await this.getByPhone(phone);
 
     if (!user) {
-      throw new Error("User not found.");
+      throw new Error(USER_NOT_FOUND_ERROR);
     }
 
     user.coins = coins;
@@ -56,7 +59,7 @@ class UserController {
     const user = await this.getByPhone(phone);
 
     if (!user) {
-      throw new Error("User not found.");
+      throw new Error(USER_NOT_FOUND_ERROR);
     }
 
     user.targetValue = targetValue;
@@ -68,10 +71,29 @@ class UserController {
     const user = await this.getByPhone(phone);
 
     if (!user) {
-      throw new Error("User not found.");
+      throw new Error(USER_NOT_FOUND_ERROR);
     }
 
     user.needNotify = !user.needNotify;
+
+    await user.save();
+  }
+
+  async saveTargetValueOption(
+    phone: string,
+    option: "LE" | "GE"
+  ): Promise<void> {
+    const user = await this.getByPhone(phone);
+
+    if (!user) {
+      throw new Error(USER_NOT_FOUND_ERROR);
+    }
+
+    if (option !== "GE" && option !== "LE") {
+      throw new Error(INVALID_TARGET_VALUE_OPTION);
+    }
+
+    user.targetValueOption = option;
 
     await user.save();
   }

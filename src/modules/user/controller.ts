@@ -3,6 +3,7 @@ import { IUser } from "./interface";
 import Cryptography from "@/utils/Cryptography";
 
 const USER_NOT_FOUND_ERROR = "User not found.";
+const INVALID_TARGET_VALUE_OPTION = "Invalid target value option";
 
 class UserController {
   async upsert({
@@ -74,6 +75,25 @@ class UserController {
     }
 
     user.needNotify = !user.needNotify;
+
+    await user.save();
+  }
+
+  async saveTargetValueOption(
+    phone: string,
+    option: "LE" | "GE"
+  ): Promise<void> {
+    const user = await this.getByPhone(phone);
+
+    if (!user) {
+      throw new Error(USER_NOT_FOUND_ERROR);
+    }
+
+    if (option !== "GE" && option !== "LE") {
+      throw new Error(INVALID_TARGET_VALUE_OPTION);
+    }
+
+    user.targetValueOption = option;
 
     await user.save();
   }
